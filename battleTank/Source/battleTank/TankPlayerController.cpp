@@ -49,7 +49,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	
 }
 //Get world location if  linetrace through crosshair, true if hits landscape
-bool ATankPlayerController::GetSightRayHitLocation(FVector & HitLocation) const
+bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 {
 
 	//Find the crosshair position in pixel coordinates
@@ -68,7 +68,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector & HitLocation) const
 		
 	return true;
 }
-bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation)const
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
 {
 	FHitResult HitResult;
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
@@ -81,9 +81,10 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 			ECollisionChannel::ECC_Visibility)
 		)
 	{
-		HitResult.Location;
+		HitLocation = HitResult.Location;
 		return true;
 	}
+	HitLocation = FVector(0);
 	return false; // Line trace didn't succeed
 	
 }
