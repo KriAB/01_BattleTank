@@ -46,10 +46,20 @@ void ATank::SetTurretReference(UTankTurret * TurretToSet)
 	TankAimingComponent->SetTurretReference(TurretToSet);
 }
 
+
+
+void ATank::AimAt(FVector HitLocation)
+{
+	//
+	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
+}
+
 void ATank::Fire()
 {
-	
-	if (!Barrel) { return; }
+	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+
+	if (Barrel && bIsReloaded) 
+	{  
 
 	// Spawn a projectile at the socket location on the barrow
 	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
@@ -59,10 +69,6 @@ void ATank::Fire()
 		);
 
 	Projectile->LaunchProjectile(LaunchSpeed);
-}
-
-void ATank::AimAt(FVector HitLocation)
-{
-	//
-	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
+	LastFireTime = FPlatformTime::Seconds();
+	}
 }

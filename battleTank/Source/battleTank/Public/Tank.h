@@ -42,8 +42,11 @@ private:
 	float LaunchSpeed = 4000; 
 
 	UPROPERTY(EditAnywhere, Category = Setup)
-		TSubclassOf<AProjectile> ProjectileBlueprint;
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+	
 	//Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
-	
+
+	float ReloadTimeInSeconds = 3;
+	double LastFireTime = 0;
 };
