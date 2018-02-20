@@ -12,9 +12,7 @@ class BATTLETANK_API ATank : public APawn
 {
 	GENERATED_BODY()
 
-public:
-	// Sets default values for this pawn's properties
-	ATank();
+
 
 public:
 	void AimAt(FVector HitLocation);
@@ -28,6 +26,12 @@ protected:
 	UPROPERTY(BluePrintReadOnly)
 	UTankMovementComponent* TankMovementComponent = nullptr;
 private:
+
+	// Sets default values for this pawn's properties
+	ATank();
+
+	virtual void BeginPlay() override;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
