@@ -20,6 +20,7 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay(); // Needed for BP begin play
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATank::AimAt(FVector HitLocation)
@@ -34,7 +35,7 @@ void ATank::Fire()
 	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 	if (!ensure(ProjectileBlueprint)) { return; }
 	if (!ensure(Barrel)) { return; }
-	if (Barrel && bIsReloaded) 
+	if (bIsReloaded) 
 	{  
 
 	// Spawn a projectile at the socket location on the barrow
