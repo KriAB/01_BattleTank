@@ -4,7 +4,7 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 UENUM()
-enum class EFiringState : uint8{Reloading, Aiming, Locked};
+enum class EFiringState : uint8{Reloading, Aiming, Locked, OutOfAmmo};
 class UTankBarrel; //Forward Declaration
 class UTankTurret; 
 class AProjectile;
@@ -24,6 +24,9 @@ public:
 	void Fire();
 
 	EFiringState GetFiringState() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int GetRoundsLeft() const;
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Reloading;	
@@ -54,4 +57,6 @@ private:
 	float ReloadTimeInSeconds = 3;
 
 	double LastFireTime = 0;
+
+	int RoundsLeft = 3;
 };
